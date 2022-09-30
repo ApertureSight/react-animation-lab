@@ -21,7 +21,30 @@ export default function AnimLab(){
     //render stuff
     let cardEls = cards.map((card, ind) => 
     {
-        return<div className="card">{card}</div>
+        let delay = ind * 100;
+
+        return(
+            <CSSTransition
+            key= {card.val}
+            appear ={true}
+            in={card.active}
+            timeout={{enter: delay, exit: 400}}
+            classNames="card"
+            >
+                <div
+                className="card"
+                style ={{transitionDelay: `${delay}ms`}}
+                onclick ={() => {
+                    cards[ind].active= false;
+                    setCards([...cards]);
+                }}
+                >
+                    {card.val}
+                </div>
+            </CSSTransition>
+        
+        
+        );
     });
 
     return(
@@ -29,8 +52,5 @@ export default function AnimLab(){
         <div className="cardStack">{cardEls}</div>
     </div>
     );
-
-
-
 
 }
